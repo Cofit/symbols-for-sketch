@@ -8,19 +8,13 @@ const bs = require('browser-sync').create()
 /**
  * Font settings
  */
-const fontName = 'symbols' // set name of your symbol font
-const className = 's' // set class name in your CSS
+const fontName = 'cficon' // set name of your symbol font
+const className = 'cficon' // set class name in your CSS
 const template = 'fontawesome-style' // or 'foundation-style'
 const skethcFileName = 'symbol-font-14px.sketch' // or 'symbol-font-16px.sketch'
 
-/**
- * Recommended to get consistent builds when watching files
- * See https://github.com/nfroidure/gulp-iconfont
- */
-const timestamp = Math.round(Date.now() / 1000)
-
-gulp.task('symbols', () =>
-  gulp.src(skethcFileName)
+gulp.task('symbols', function(){
+  gulp.src('symbol-font-16px.sketch') // you can also choose 'symbol-font-16px.sketch'
     .pipe(sketch({
       export: 'artboards',
       formats: 'svg'
@@ -50,6 +44,7 @@ gulp.task('symbols', () =>
         .pipe(gulp.dest('dist/')) // set path to export your sample HTML
     })
     .pipe(gulp.dest('dist/fonts/')) // set path to export your fonts
+  }
 )
 
 gulp.task('watch', ['symbols'], () => {
