@@ -20,15 +20,13 @@ gulp.task('symbols', function(){
       formats: 'svg'
     }))
     .pipe(iconfont({
-      fontName,
-      formats: ['ttf', 'eot', 'woff', 'woff2', 'svg'],
-      timestamp,
-      log: () => {} // suppress unnecessary logging
+      fontName: fontName,
+      formats: ['ttf', 'eot', 'woff', 'svg'] 
     }))
-    .on('glyphs', (glyphs) => {
-      const options = {
-        className,
-        fontName,
+    .on('glyphs', function(glyphs) {
+      var options = {
+        className: 'cficon', // set class name in your CSS
+        fontName: fontName,
         fontPath: '../fonts/', // set path to font (from your CSS file if relative)
         glyphs: glyphs.map(mapGlyphs)
       }
