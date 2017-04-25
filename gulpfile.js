@@ -10,11 +10,11 @@ const bs = require('browser-sync').create()
  */
 const fontName = 'cficon' // set name of your symbol font
 const className = 'cficon' // set class name in your CSS
-const template = 'fontawesome-style' // or 'foundation-style'
-const skethcFileName = 'symbol-font-14px.sketch' // or 'symbol-font-16px.sketch'
+const skethcFileName = 'symbol-font-16px.sketch' // or 'symbol-font-16px.sketch'
+const template = 'ionic-2-style'; // you can also choose 'foundation-style'
 
 gulp.task('symbols', function(){
-  gulp.src('symbol-font-16px.sketch') // you can also choose 'symbol-font-16px.sketch'
+  gulp.src(skethcFileName)
     .pipe(sketch({
       export: 'artboards',
       formats: 'svg'
@@ -31,6 +31,11 @@ gulp.task('symbols', function(){
         glyphs: glyphs.map(mapGlyphs)
       }
       gulp.src(`templates/${template}.css`)
+        .pipe(consolidate('lodash', options))
+        .pipe(rename({ basename: fontName }))
+        .pipe(gulp.dest('dist/css/')) // set path to export your CSS
+
+      gulp.src('templates/' + template + '.scss')
         .pipe(consolidate('lodash', options))
         .pipe(rename({ basename: fontName }))
         .pipe(gulp.dest('dist/css/')) // set path to export your CSS

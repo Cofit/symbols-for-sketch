@@ -1,0 +1,73 @@
+@font-face {
+  font-family: "<%= fontName %>";
+  src: url('../assets/fonts/<%= fontName %>.eot');
+  src: url('../assets/fonts/<%= fontName %>.eot?#iefix') format('eot'),
+    url('../assets/fonts/<%= fontName %>.woff2') format('woff2'),
+    url('../assets/fonts/<%= fontName %>.woff') format('woff'),
+    url('../assets/fonts/<%= fontName %>.ttf') format('truetype'),
+    url('../assets/fonts/<%= fontName %>.svg#<%= fontName %>') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.<%= className %>:before {
+  display: inline-block;
+  font-family: "<%= fontName %>";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.<%= className %>-before {
+  display: inline-block;
+  font-family: "<%= fontName %>";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.<%= className %>-lg {
+  font-size: 1.3333333333333333em;
+  line-height: 0.75em;
+  vertical-align: -15%;
+}
+.<%= className %>-2x { font-size: 2em; }
+.<%= className %>-3x { font-size: 3em; }
+.<%= className %>-4x { font-size: 4em; }
+.<%= className %>-5x { font-size: 5em; }
+.<%= className %>-fw {
+  width: 1.2857142857142858em;
+  text-align: center;
+}
+
+<% var glyphWithActive = _.filter(glyphs, function(glyph) {return _.endsWith(glyph.name, '-active');})%>
+<% var glyphNameWithoutActive = _.map(glyphWithActive, function(glyph){return _.replace(glyph.name, '-active', '');});%>
+<% var glyphNameWithActive = _.map(glyphWithActive, function(glyph){return glyph.name});%>
+<% var glyphNameWithFifit = _.map(_.filter(glyphs, function(glyph) {return _.includes(glyph.name, 'fifit');}), function(glyph){return glyph.name});%>
+
+<% _.each(glyphs, function(glyph) { %>
+  .<%= className %>-<%= glyph.name %>:before {
+    @extend .<%= className %>-before;
+    content: "\<%= glyph.codepoint.toString(16).toUpperCase() %>"
+  }
+
+  .ion-ios-<%= className %>-<%= glyph.name %>:before {
+    @extend .<%= className %>-before;
+    content: "\<%= glyph.codepoint.toString(16).toUpperCase() %>"
+  }
+
+  <% if (_.includes(glyphNameWithoutActive, glyph.name) && _.includes(glyphNameWithFifit, glyph.name)) { %>
+  .ion-ios-<%= className %>-<%= glyph.name %>-active-outline:before {
+    @extend .<%= className %>-before;
+    content: "\<%= glyph.codepoint.toString(16).toUpperCase() %>"
+  }
+  .ion-ios-<%= className %>-<%= glyph.name %>-active:before {
+    @extend .<%= className %>-before;
+    content: "\<%= glyph.codepoint.toString(16).toUpperCase() %>"
+  }
+  <% }%>
+<% });%>
