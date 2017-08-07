@@ -29,5 +29,8 @@
     "gulp-rename": "^1.2.2",
     "gulp-sketch": "^1.0.3",
     "lodash": "^4.17.2"
+  },
+  "dependencies": {
+    "gulp-sketch": "^1.0.3"
   }
 }
